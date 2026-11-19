@@ -1349,6 +1349,7 @@ body.view .viewbar { display: block }
   const who = () => whoInput.value.trim();
   let online = null;
   function setSync(ok, msg) {
+    if (VIEW) msg = "";
     online = ok;
     const el = document.getElementById("sync");
     el.textContent = msg; el.className = "sync " + (ok ? "on" : ok === false ? "off" : "");
