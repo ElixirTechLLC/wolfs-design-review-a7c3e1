@@ -71,6 +71,21 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
 .sync { font: 400 11px/1.3 var(--caps); letter-spacing: .04em; color: var(--muted); flex-basis: 100%; }
 .sync.on { color: var(--ok) } .sync.off { color: var(--bad) }
 .status { font: 400 11px/1.4 var(--caps); color: var(--muted); min-height: 1em }
+/* Read-only view of the answers (?view): controls gone, unchosen photos dimmed, verdict and note shown */
+body.view .how, body.view .track, body.view .note, body.view .send, body.view .who, body.view .sendbox, body.view .offline { display: none !important }
+body.view .refs figure { cursor: default }
+body.view .design.answered .refs figure:not(.pick) { opacity: .28; filter: grayscale(.4) }
+body.view .refs figure.pick { outline: 3px solid var(--brass); border-color: var(--brass) }
+body.view .refs figure.pick::after { font-size: 10px; padding: 5px 0 }
+body.view .verdict { align-content: start }
+body.view .answer { font: 15px/1.45 var(--body); color: var(--ink); display: grid; gap: 6px }
+body.view .answer .v { display: inline-block; font: 600 11px/1 var(--caps); letter-spacing: .14em; text-transform: uppercase; padding: 6px 9px; color: #fff; width: max-content }
+body.view .answer .v.right { background: var(--ok) } body.view .answer .v.close { background: var(--warn) } body.view .answer .v.no { background: var(--bad) } body.view .answer .v.none { background: var(--muted) }
+body.view .answer q { font-style: italic } body.view .answer q::before, body.view .answer q::after { content: "\201C" } body.view .answer q::after { content: "\201D" }
+body.view .answer small { font: 11px/1.4 var(--caps); color: var(--muted) }
+body.view .design:not(.answered) { opacity: .55 }
+.viewbar { display: none; background: var(--brass-soft); border-bottom: 1px solid var(--line); font: 500 12px/1.4 var(--caps); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); padding: 10px 16px; text-align: center }
+body.view .viewbar { display: block }
 </style>
 <script src="config.js"></script>
 </head>
@@ -87,6 +102,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
   </div>
 </div></header>
 
+<div class="viewbar">Read-only view of the owners’ answers. Nothing on this page can be changed.</div>
 <nav class="toolbar"><div class="in">
   <a href="#engagement">Engagement Rings</a><a href="#wedding">Wedding Bands</a><a href="#rings">Rings</a><a href="#bracelets">Bracelets</a><a href="#chains">Chains</a>
   <span class="progress" id="progress">0 of 100 reviewed</span>
@@ -105,6 +121,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-002" data-sku="ER-002">
@@ -116,6 +133,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-003" data-sku="ER-003">
@@ -127,6 +145,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-004" data-sku="ER-004">
@@ -138,6 +157,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-005" data-sku="ER-005">
@@ -149,6 +169,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-006" data-sku="ER-006">
@@ -160,6 +181,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-007" data-sku="ER-007">
@@ -171,6 +193,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-008" data-sku="ER-008">
@@ -182,6 +205,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-009" data-sku="ER-009">
@@ -193,6 +217,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-010" data-sku="ER-010">
@@ -204,6 +229,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-011" data-sku="ER-011">
@@ -215,6 +241,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-012" data-sku="ER-012">
@@ -226,6 +253,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-013" data-sku="ER-013">
@@ -237,6 +265,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-014" data-sku="ER-014">
@@ -248,6 +277,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-015" data-sku="ER-015">
@@ -259,6 +289,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-016" data-sku="ER-016">
@@ -270,6 +301,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-017" data-sku="ER-017">
@@ -281,6 +313,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-018" data-sku="ER-018">
@@ -292,6 +325,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-019" data-sku="ER-019">
@@ -303,6 +337,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="ER-020" data-sku="ER-020">
@@ -314,6 +349,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article></section>
 <section id="wedding" class="dept"><h2>Wedding Bands<span class="count" data-cat="wedding"></span></h2><article class="design" id="WB-001" data-sku="WB-001">
@@ -325,6 +361,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-002" data-sku="WB-002">
@@ -336,6 +373,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-003" data-sku="WB-003">
@@ -347,6 +385,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-004" data-sku="WB-004">
@@ -358,6 +397,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-005" data-sku="WB-005">
@@ -369,6 +409,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-006" data-sku="WB-006">
@@ -380,6 +421,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-007" data-sku="WB-007">
@@ -391,6 +433,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-008" data-sku="WB-008">
@@ -402,6 +445,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-009" data-sku="WB-009">
@@ -413,6 +457,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-010" data-sku="WB-010">
@@ -424,6 +469,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-011" data-sku="WB-011">
@@ -435,6 +481,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-012" data-sku="WB-012">
@@ -446,6 +493,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-013" data-sku="WB-013">
@@ -457,6 +505,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-014" data-sku="WB-014">
@@ -468,6 +517,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-015" data-sku="WB-015">
@@ -479,6 +529,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-016" data-sku="WB-016">
@@ -490,6 +541,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-017" data-sku="WB-017">
@@ -501,6 +553,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-018" data-sku="WB-018">
@@ -512,6 +565,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-019" data-sku="WB-019">
@@ -523,6 +577,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="WB-020" data-sku="WB-020">
@@ -534,6 +589,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article></section>
 <section id="rings" class="dept"><h2>Rings<span class="count" data-cat="rings"></span></h2><article class="design" id="RG-001" data-sku="RG-001">
@@ -545,6 +601,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-002" data-sku="RG-002">
@@ -556,6 +613,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-003" data-sku="RG-003">
@@ -567,6 +625,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-004" data-sku="RG-004">
@@ -578,6 +637,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-005" data-sku="RG-005">
@@ -589,6 +649,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-006" data-sku="RG-006">
@@ -600,6 +661,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-007" data-sku="RG-007">
@@ -611,6 +673,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-008" data-sku="RG-008">
@@ -622,6 +685,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-009" data-sku="RG-009">
@@ -633,6 +697,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-010" data-sku="RG-010">
@@ -644,6 +709,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-011" data-sku="RG-011">
@@ -655,6 +721,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-012" data-sku="RG-012">
@@ -666,6 +733,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-013" data-sku="RG-013">
@@ -677,6 +745,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-014" data-sku="RG-014">
@@ -688,6 +757,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-015" data-sku="RG-015">
@@ -699,6 +769,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-016" data-sku="RG-016">
@@ -710,6 +781,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-017" data-sku="RG-017">
@@ -721,6 +793,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-018" data-sku="RG-018">
@@ -732,6 +805,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-019" data-sku="RG-019">
@@ -743,6 +817,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="RG-020" data-sku="RG-020">
@@ -754,6 +829,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article></section>
 <section id="bracelets" class="dept"><h2>Bracelets<span class="count" data-cat="bracelets"></span></h2><article class="design" id="BR-001" data-sku="BR-001">
@@ -765,6 +841,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-002" data-sku="BR-002">
@@ -776,6 +853,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-003" data-sku="BR-003">
@@ -787,6 +865,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-004" data-sku="BR-004">
@@ -798,6 +877,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-005" data-sku="BR-005">
@@ -809,6 +889,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-006" data-sku="BR-006">
@@ -820,6 +901,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-007" data-sku="BR-007">
@@ -831,6 +913,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-008" data-sku="BR-008">
@@ -842,6 +925,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-009" data-sku="BR-009">
@@ -853,6 +937,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-010" data-sku="BR-010">
@@ -864,6 +949,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-011" data-sku="BR-011">
@@ -875,6 +961,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-012" data-sku="BR-012">
@@ -886,6 +973,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-013" data-sku="BR-013">
@@ -897,6 +985,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-014" data-sku="BR-014">
@@ -908,6 +997,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-015" data-sku="BR-015">
@@ -919,6 +1009,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-016" data-sku="BR-016">
@@ -930,6 +1021,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-017" data-sku="BR-017">
@@ -941,6 +1033,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-018" data-sku="BR-018">
@@ -952,6 +1045,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-019" data-sku="BR-019">
@@ -963,6 +1057,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="BR-020" data-sku="BR-020">
@@ -974,6 +1069,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article></section>
 <section id="chains" class="dept"><h2>Chains<span class="count" data-cat="chains"></span></h2><article class="design" id="CH-001" data-sku="CH-001">
@@ -985,6 +1081,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-002" data-sku="CH-002">
@@ -996,6 +1093,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-003" data-sku="CH-003">
@@ -1007,6 +1105,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-004" data-sku="CH-004">
@@ -1018,6 +1117,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-005" data-sku="CH-005">
@@ -1029,6 +1129,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-006" data-sku="CH-006">
@@ -1040,6 +1141,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-007" data-sku="CH-007">
@@ -1051,6 +1153,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-008" data-sku="CH-008">
@@ -1062,6 +1165,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-009" data-sku="CH-009">
@@ -1073,6 +1177,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-010" data-sku="CH-010">
@@ -1084,6 +1189,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-011" data-sku="CH-011">
@@ -1095,6 +1201,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-012" data-sku="CH-012">
@@ -1106,6 +1213,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-013" data-sku="CH-013">
@@ -1117,6 +1225,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-014" data-sku="CH-014">
@@ -1128,6 +1237,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-015" data-sku="CH-015">
@@ -1139,6 +1249,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-016" data-sku="CH-016">
@@ -1150,6 +1261,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-017" data-sku="CH-017">
@@ -1161,6 +1273,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-018" data-sku="CH-018">
@@ -1172,6 +1285,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-019" data-sku="CH-019">
@@ -1183,6 +1297,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article>
 <article class="design" id="CH-020" data-sku="CH-020">
@@ -1194,6 +1309,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
     <div class="status" aria-live="polite"></div>
+    <div class="answer" hidden></div>
   </div>
 </article></section>
 
@@ -1212,6 +1328,8 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
   const NAMES = {"ER-001":"Evermore Round Solitaire","ER-002":"Elara Oval Solitaire","ER-003":"Adeline Emerald Bezel Ring","ER-004":"Seraphina Cushion Halo Ring","ER-005":"Isla Pear Hidden Halo Ring","ER-006":"Celeste Radiant Split Shank Ring","ER-007":"Vivienne Marquise Cathedral Ring","ER-008":"Aria Princess Solitaire","ER-009":"Eleanor Asscher Vintage Halo","ER-010":"Lumiere Round Pave Solitaire","ER-011":"Verona Oval Three-Stone Ring","ER-012":"Monaco Emerald Three-Stone Ring","ER-013":"Aurora Radiant Hidden Halo","ER-014":"Briar Cushion Vintage Ring","ER-015":"Nova Pear Bypass Ring","ER-016":"Juliet Round Twist Ring","ER-017":"Solene East-West Marquise Ring","ER-018":"Iris Oval Bezel Shoulder Ring","ER-019":"Cassia Heart Solitaire","ER-020":"Stella Round Double Halo Ring","WB-001":"Signature Comfort Band 2mm","WB-002":"Signature Comfort Band 4mm","WB-003":"Signature Comfort Band 6mm","WB-004":"Classic Knife Edge Band","WB-005":"Brushed Flat Wedding Band","WB-006":"Heritage Milgrain Band","WB-007":"Artisan Hammered Band","WB-008":"Modern Beveled Band","WB-009":"Heirloom Braided Band","WB-010":"Parallel Groove Band","WB-011":"Forever Half Eternity Band","WB-012":"Infinity Full Eternity Band","WB-013":"Crown Channel Princess Band","WB-014":"Promise Chevron Pave Band","WB-015":"Stellar Bezel Dot Band","WB-016":"Deco Baguette Wedding Band","WB-017":"Petal Scallop Diamond Band","WB-018":"Harmony Mixed-Cut Band","WB-019":"Laurel Marquise Diamond Band","WB-020":"Secret Spark Diamond Band","RG-001":"Luna East-West Emerald Ring","RG-002":"Marquise Compass Ring","RG-003":"Beacon Bezel Round Ring","RG-004":"Helix Oval Ring","RG-005":"Serene Pear Halo Ring","RG-006":"Flare Radiant Signet Ring","RG-007":"Prism Princess Split Ring","RG-008":"Dusk Cushion Ring","RG-009":"Astoria Asscher Step Ring","RG-010":"Orion Heart Halo Ring","RG-011":"Nova Pave Dome Ring","RG-012":"Cascade Bypass Diamond Ring","RG-013":"Celeste Zigzag Diamond Ring","RG-014":"Orbit Scatter Diamond Ring","RG-015":"Lumiere Diamond Bar Ring","RG-016":"Spire Ribbed Diamond Ring","RG-017":"Sculpted Wave Ring","RG-018":"Mirror Dome Ring","RG-019":"Interlock Ribbon Ring","RG-020":"Open Horizon Ring","BR-001":"Solstice Flat Curb Bracelet","BR-002":"Meridian Paperclip Bracelet","BR-003":"Portofino Figaro Bracelet","BR-004":"Harbor Mariner Bracelet","BR-005":"Atlas Cuban Bracelet","BR-006":"Ridge Rope Bracelet","BR-007":"Lumen Herringbone Bracelet","BR-008":"Coast Square Box Bracelet","BR-009":"Sable Wheat Bracelet","BR-010":"Tempo Bead Bracelet","BR-011":"Arcadia Open Cuff","BR-012":"Halo Ridge Cuff","BR-013":"Celeste Twist Cuff","BR-014":"Orion Hammered Cuff","BR-015":"Muse Knife-Edge Cuff","BR-016":"Aurora Round Tennis Bracelet","BR-017":"Riviera Graduated Tennis Bracelet","BR-018":"Lattice Pave Link Bracelet","BR-019":"Starlight Bezel Station Bracelet","BR-020":"Luna Diamond Arc Bangle","CH-001":"Everyday Cable Chain","CH-002":"Dainty Trace Chain","CH-003":"Regent Curb Chain","CH-004":"Micro Cuban Chain","CH-005":"Milano Figaro Chain","CH-006":"Navigator Mariner Chain","CH-007":"Sundial Rope Chain","CH-008":"Heirloom Wheat Chain","CH-009":"Architect Box Chain","CH-010":"Silk Snake Chain","CH-011":"Glide Omega Chain","CH-012":"Ribbon Herringbone Chain","CH-013":"Avenue Paperclip Chain","CH-014":"Fortress Franco Chain","CH-015":"Byzantine Heritage Chain","CH-016":"Twist Singapore Chain","CH-017":"North Star Station Chain","CH-018":"Glow Halo Station Chain","CH-019":"Nova Bezel Chain","CH-020":"Mosaic Pave Segment Chain"};
   const BOARD = "wolfs-100";
   const KEY = "wolfs_review_v1";
+  const VIEW = new URLSearchParams(location.search).has("view");
+  if (VIEW) document.body.classList.add("view");
   const designs = Array.from(document.querySelectorAll(".design"));
   const API = (() => {
     try {
@@ -1221,8 +1339,8 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     } catch (e) { return window.REVIEW_API || ""; }
   })().replace(/[/]$/, "");
   let state = {};
-  try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
-  const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* private mode */ } };
+  try { state = VIEW ? {} : (JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { state = {}; }
+  const persist = () => { if (VIEW) return; try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* private mode */ } };
   const reviewed = (s) => !!(s && (s.track || s.note || s.pick != null));
   const $ = (el, sel) => el.querySelector(sel);
   const whoInput = document.getElementById("who");
@@ -1244,6 +1362,22 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     el.querySelectorAll(".refs figure").forEach((f) => f.classList.toggle("pick", s.pick != null && +f.dataset.i === s.pick));
     const ta = $(el, "textarea"); if (document.activeElement !== ta && ta.value !== (s.note || "")) ta.value = s.note || "";
     const st = $(el, ".status");
+    el.classList.toggle("answered", reviewed(s));
+    if (VIEW) {
+      const ans = $(el, ".answer");
+      const LAB = { right: "Looks right", close: "Close", no: "Not it" };
+      if (!reviewed(s)) { ans.hidden = false; ans.innerHTML = "<small>No answer</small>"; }
+      else {
+        ans.hidden = false;
+        ans.innerHTML = (s.track ? '<span class="v ' + s.track + '">' + LAB[s.track] + "</span>" : '<span class="v none">No verdict</span>')
+          + (s.pick != null ? "<div>Closest photo: #" + (s.pick + 1) + "</div>" : "<div>No photo chosen</div>")
+          + (s.note ? "<div><q></q></div>" : "")
+          + "<small>" + (s.who ? s.who + ", " : "") + when(s.at) + "</small>";
+        if (s.note) ans.querySelector("q").textContent = s.note;
+      }
+      st.textContent = "";
+      return;
+    }
     if (!reviewed(s)) st.textContent = "";
     else if (s.saved) st.textContent = "Saved" + (s.who ? " by " + s.who : "") + (s.at ? ", " + when(s.at) : "");
     else if (s.pending) st.textContent = "Saving…";
@@ -1314,12 +1448,13 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       if (changed) { designs.forEach((d) => paint(d.dataset.sku)); paintCounts(); }
       setSync(true, "Connected: answers save automatically.");
       // anything we marked while offline goes up now
-      designs.forEach((d) => { const s = state[d.dataset.sku]; if (reviewed(s) && !s.saved && !s.pending) push(d.dataset.sku); });
+      if (!VIEW) designs.forEach((d) => { const s = state[d.dataset.sku]; if (reviewed(s) && !s.saved && !s.pending) push(d.dataset.sku); });
     } catch (e) {
       setSync(false, "Not connected right now: your answers stay in this browser. Use “Send my answers” when you finish.");
     }
   }
   function save(sku, patch) {
+    if (VIEW) return;
     state[sku] = Object.assign({}, state[sku] || {}, patch, { at: new Date().toISOString(), saved: false });
     persist(); paint(sku); paintCounts();
     clearTimeout(save._t[sku]); save._t[sku] = setTimeout(() => push(sku), 400);
@@ -1359,6 +1494,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
   });
   designs.forEach((d) => paint(d.dataset.sku)); paintCounts();
   if (API) { setSync(null, "Connecting…"); pull(); setInterval(pull, 30000); }
+  if (VIEW) { setSync(null, ""); document.getElementById("sync").textContent = ""; }
   else setSync(null, "Answers are kept in this browser. Press “Send my answers” when you finish.");
 })();
 </script>
