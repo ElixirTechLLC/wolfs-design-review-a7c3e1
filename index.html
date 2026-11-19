@@ -66,7 +66,13 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
 @media (max-width: 1000px) { .design { grid-template-columns: 1fr; gap: 14px } .refs { grid-template-columns: repeat(3, minmax(0, 1fr)) } .how { grid-template-columns: 1fr 1fr } }
 @media (max-width: 560px) { .how { grid-template-columns: 1fr } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+.who { display: flex; align-items: center; gap: 8px; font: 500 11px/1 var(--caps); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+.who input { font: 15px/1.2 var(--body); color: var(--ink); background: var(--paper); border: 1px solid var(--line); padding: 7px 9px; width: 150px; border-radius: 0 }
+.sync { font: 400 11px/1.3 var(--caps); letter-spacing: .04em; color: var(--muted); flex-basis: 100%; }
+.sync.on { color: var(--ok) } .sync.off { color: var(--bad) }
+.status { font: 400 11px/1.4 var(--caps); color: var(--muted); min-height: 1em }
 </style>
+<script src="config.js"></script>
 </head>
 <body>
 <header class="band"><div class="in">
@@ -77,14 +83,16 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     <div><b>1. Rate</b>Looks right, Close, or Not it.</div>
     <div><b>2. Pick</b>Click the photo that is closest to the design, if one is.</div>
     <div><b>3. Note</b>Say what should change.</div>
-    <div><b>4. Send</b>When you are done, press “Send my answers” at the top or bottom. Your work is kept in this browser until then.</div>
+    <div><b>4. That is it</b>Answers save as you go when the board is connected to our server. If it is not, press “Send my answers” when you are done.</div>
   </div>
 </div></header>
 
 <nav class="toolbar"><div class="in">
   <a href="#engagement">Engagement Rings</a><a href="#wedding">Wedding Bands</a><a href="#rings">Rings</a><a href="#bracelets">Bracelets</a><a href="#chains">Chains</a>
   <span class="progress" id="progress">0 of 100 reviewed</span>
+  <label class="who">Your name <input id="who" placeholder="So we know who said it" autocomplete="name"></label>
   <span class="send"><button type="button" data-send>Send my answers</button></span>
+  <span class="sync" id="sync"></span>
 </div></nav>
 
 <main class="wrap">
@@ -96,6 +104,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-002" data-sku="ER-002">
@@ -106,6 +115,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-003" data-sku="ER-003">
@@ -116,6 +126,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-004" data-sku="ER-004">
@@ -126,6 +137,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-005" data-sku="ER-005">
@@ -136,6 +148,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-006" data-sku="ER-006">
@@ -146,6 +159,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-007" data-sku="ER-007">
@@ -156,6 +170,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-008" data-sku="ER-008">
@@ -166,6 +181,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-009" data-sku="ER-009">
@@ -176,6 +192,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-010" data-sku="ER-010">
@@ -186,6 +203,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-011" data-sku="ER-011">
@@ -196,6 +214,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-012" data-sku="ER-012">
@@ -206,6 +225,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-013" data-sku="ER-013">
@@ -216,6 +236,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-014" data-sku="ER-014">
@@ -226,6 +247,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-015" data-sku="ER-015">
@@ -236,6 +258,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-016" data-sku="ER-016">
@@ -246,6 +269,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-017" data-sku="ER-017">
@@ -256,6 +280,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-018" data-sku="ER-018">
@@ -266,6 +291,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-019" data-sku="ER-019">
@@ -276,6 +302,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="ER-020" data-sku="ER-020">
@@ -286,6 +313,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article></section>
 <section id="wedding" class="dept"><h2>Wedding Bands<span class="count" data-cat="wedding"></span></h2><article class="design" id="WB-001" data-sku="WB-001">
@@ -296,6 +324,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-002" data-sku="WB-002">
@@ -306,6 +335,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-003" data-sku="WB-003">
@@ -316,6 +346,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-004" data-sku="WB-004">
@@ -326,6 +357,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-005" data-sku="WB-005">
@@ -336,6 +368,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-006" data-sku="WB-006">
@@ -346,6 +379,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-007" data-sku="WB-007">
@@ -356,6 +390,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-008" data-sku="WB-008">
@@ -366,6 +401,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-009" data-sku="WB-009">
@@ -376,6 +412,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-010" data-sku="WB-010">
@@ -386,6 +423,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-011" data-sku="WB-011">
@@ -396,6 +434,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-012" data-sku="WB-012">
@@ -406,6 +445,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-013" data-sku="WB-013">
@@ -416,6 +456,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-014" data-sku="WB-014">
@@ -426,6 +467,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-015" data-sku="WB-015">
@@ -436,6 +478,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-016" data-sku="WB-016">
@@ -446,6 +489,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-017" data-sku="WB-017">
@@ -456,6 +500,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-018" data-sku="WB-018">
@@ -466,6 +511,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-019" data-sku="WB-019">
@@ -476,6 +522,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="WB-020" data-sku="WB-020">
@@ -486,6 +533,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article></section>
 <section id="rings" class="dept"><h2>Rings<span class="count" data-cat="rings"></span></h2><article class="design" id="RG-001" data-sku="RG-001">
@@ -496,6 +544,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-002" data-sku="RG-002">
@@ -506,6 +555,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-003" data-sku="RG-003">
@@ -516,6 +566,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-004" data-sku="RG-004">
@@ -526,6 +577,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-005" data-sku="RG-005">
@@ -536,6 +588,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-006" data-sku="RG-006">
@@ -546,6 +599,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-007" data-sku="RG-007">
@@ -556,6 +610,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-008" data-sku="RG-008">
@@ -566,6 +621,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-009" data-sku="RG-009">
@@ -576,6 +632,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-010" data-sku="RG-010">
@@ -586,6 +643,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-011" data-sku="RG-011">
@@ -596,6 +654,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-012" data-sku="RG-012">
@@ -606,6 +665,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-013" data-sku="RG-013">
@@ -616,6 +676,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-014" data-sku="RG-014">
@@ -626,6 +687,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-015" data-sku="RG-015">
@@ -636,6 +698,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-016" data-sku="RG-016">
@@ -646,6 +709,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-017" data-sku="RG-017">
@@ -656,6 +720,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-018" data-sku="RG-018">
@@ -666,6 +731,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-019" data-sku="RG-019">
@@ -676,6 +742,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="RG-020" data-sku="RG-020">
@@ -686,6 +753,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article></section>
 <section id="bracelets" class="dept"><h2>Bracelets<span class="count" data-cat="bracelets"></span></h2><article class="design" id="BR-001" data-sku="BR-001">
@@ -696,6 +764,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-002" data-sku="BR-002">
@@ -706,6 +775,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-003" data-sku="BR-003">
@@ -716,6 +786,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-004" data-sku="BR-004">
@@ -726,6 +797,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-005" data-sku="BR-005">
@@ -736,6 +808,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-006" data-sku="BR-006">
@@ -746,6 +819,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-007" data-sku="BR-007">
@@ -756,6 +830,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-008" data-sku="BR-008">
@@ -766,6 +841,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-009" data-sku="BR-009">
@@ -776,6 +852,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-010" data-sku="BR-010">
@@ -786,6 +863,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-011" data-sku="BR-011">
@@ -796,6 +874,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-012" data-sku="BR-012">
@@ -806,6 +885,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-013" data-sku="BR-013">
@@ -816,6 +896,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-014" data-sku="BR-014">
@@ -826,6 +907,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-015" data-sku="BR-015">
@@ -836,6 +918,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-016" data-sku="BR-016">
@@ -846,6 +929,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-017" data-sku="BR-017">
@@ -856,6 +940,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-018" data-sku="BR-018">
@@ -866,6 +951,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-019" data-sku="BR-019">
@@ -876,6 +962,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="BR-020" data-sku="BR-020">
@@ -886,6 +973,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article></section>
 <section id="chains" class="dept"><h2>Chains<span class="count" data-cat="chains"></span></h2><article class="design" id="CH-001" data-sku="CH-001">
@@ -896,6 +984,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-002" data-sku="CH-002">
@@ -906,6 +995,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-003" data-sku="CH-003">
@@ -916,6 +1006,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-004" data-sku="CH-004">
@@ -926,6 +1017,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-005" data-sku="CH-005">
@@ -936,6 +1028,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-006" data-sku="CH-006">
@@ -946,6 +1039,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-007" data-sku="CH-007">
@@ -956,6 +1050,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-008" data-sku="CH-008">
@@ -966,6 +1061,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-009" data-sku="CH-009">
@@ -976,6 +1072,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-010" data-sku="CH-010">
@@ -986,6 +1083,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-011" data-sku="CH-011">
@@ -996,6 +1094,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-012" data-sku="CH-012">
@@ -1006,6 +1105,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-013" data-sku="CH-013">
@@ -1016,6 +1116,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-014" data-sku="CH-014">
@@ -1026,6 +1127,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-015" data-sku="CH-015">
@@ -1036,6 +1138,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-016" data-sku="CH-016">
@@ -1046,6 +1149,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-017" data-sku="CH-017">
@@ -1056,6 +1160,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-018" data-sku="CH-018">
@@ -1066,6 +1171,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-019" data-sku="CH-019">
@@ -1076,6 +1182,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article>
 <article class="design" id="CH-020" data-sku="CH-020">
@@ -1086,6 +1193,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       <button type="button" data-track="right">Looks right</button><button type="button" data-track="close">Close</button><button type="button" data-track="no">Not it</button>
     </div>
     <label class="note"><span>Note</span><textarea rows="2" placeholder="What should change, or which photo is closest"></textarea></label>
+    <div class="status" aria-live="polite"></div>
   </div>
 </article></section>
 
@@ -1102,13 +1210,32 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
 <script>
 (() => {
   const NAMES = {"ER-001":"Evermore Round Solitaire","ER-002":"Elara Oval Solitaire","ER-003":"Adeline Emerald Bezel Ring","ER-004":"Seraphina Cushion Halo Ring","ER-005":"Isla Pear Hidden Halo Ring","ER-006":"Celeste Radiant Split Shank Ring","ER-007":"Vivienne Marquise Cathedral Ring","ER-008":"Aria Princess Solitaire","ER-009":"Eleanor Asscher Vintage Halo","ER-010":"Lumiere Round Pave Solitaire","ER-011":"Verona Oval Three-Stone Ring","ER-012":"Monaco Emerald Three-Stone Ring","ER-013":"Aurora Radiant Hidden Halo","ER-014":"Briar Cushion Vintage Ring","ER-015":"Nova Pear Bypass Ring","ER-016":"Juliet Round Twist Ring","ER-017":"Solene East-West Marquise Ring","ER-018":"Iris Oval Bezel Shoulder Ring","ER-019":"Cassia Heart Solitaire","ER-020":"Stella Round Double Halo Ring","WB-001":"Signature Comfort Band 2mm","WB-002":"Signature Comfort Band 4mm","WB-003":"Signature Comfort Band 6mm","WB-004":"Classic Knife Edge Band","WB-005":"Brushed Flat Wedding Band","WB-006":"Heritage Milgrain Band","WB-007":"Artisan Hammered Band","WB-008":"Modern Beveled Band","WB-009":"Heirloom Braided Band","WB-010":"Parallel Groove Band","WB-011":"Forever Half Eternity Band","WB-012":"Infinity Full Eternity Band","WB-013":"Crown Channel Princess Band","WB-014":"Promise Chevron Pave Band","WB-015":"Stellar Bezel Dot Band","WB-016":"Deco Baguette Wedding Band","WB-017":"Petal Scallop Diamond Band","WB-018":"Harmony Mixed-Cut Band","WB-019":"Laurel Marquise Diamond Band","WB-020":"Secret Spark Diamond Band","RG-001":"Luna East-West Emerald Ring","RG-002":"Marquise Compass Ring","RG-003":"Beacon Bezel Round Ring","RG-004":"Helix Oval Ring","RG-005":"Serene Pear Halo Ring","RG-006":"Flare Radiant Signet Ring","RG-007":"Prism Princess Split Ring","RG-008":"Dusk Cushion Ring","RG-009":"Astoria Asscher Step Ring","RG-010":"Orion Heart Halo Ring","RG-011":"Nova Pave Dome Ring","RG-012":"Cascade Bypass Diamond Ring","RG-013":"Celeste Zigzag Diamond Ring","RG-014":"Orbit Scatter Diamond Ring","RG-015":"Lumiere Diamond Bar Ring","RG-016":"Spire Ribbed Diamond Ring","RG-017":"Sculpted Wave Ring","RG-018":"Mirror Dome Ring","RG-019":"Interlock Ribbon Ring","RG-020":"Open Horizon Ring","BR-001":"Solstice Flat Curb Bracelet","BR-002":"Meridian Paperclip Bracelet","BR-003":"Portofino Figaro Bracelet","BR-004":"Harbor Mariner Bracelet","BR-005":"Atlas Cuban Bracelet","BR-006":"Ridge Rope Bracelet","BR-007":"Lumen Herringbone Bracelet","BR-008":"Coast Square Box Bracelet","BR-009":"Sable Wheat Bracelet","BR-010":"Tempo Bead Bracelet","BR-011":"Arcadia Open Cuff","BR-012":"Halo Ridge Cuff","BR-013":"Celeste Twist Cuff","BR-014":"Orion Hammered Cuff","BR-015":"Muse Knife-Edge Cuff","BR-016":"Aurora Round Tennis Bracelet","BR-017":"Riviera Graduated Tennis Bracelet","BR-018":"Lattice Pave Link Bracelet","BR-019":"Starlight Bezel Station Bracelet","BR-020":"Luna Diamond Arc Bangle","CH-001":"Everyday Cable Chain","CH-002":"Dainty Trace Chain","CH-003":"Regent Curb Chain","CH-004":"Micro Cuban Chain","CH-005":"Milano Figaro Chain","CH-006":"Navigator Mariner Chain","CH-007":"Sundial Rope Chain","CH-008":"Heirloom Wheat Chain","CH-009":"Architect Box Chain","CH-010":"Silk Snake Chain","CH-011":"Glide Omega Chain","CH-012":"Ribbon Herringbone Chain","CH-013":"Avenue Paperclip Chain","CH-014":"Fortress Franco Chain","CH-015":"Byzantine Heritage Chain","CH-016":"Twist Singapore Chain","CH-017":"North Star Station Chain","CH-018":"Glow Halo Station Chain","CH-019":"Nova Bezel Chain","CH-020":"Mosaic Pave Segment Chain"};
+  const BOARD = "wolfs-100";
   const KEY = "wolfs_review_v1";
   const designs = Array.from(document.querySelectorAll(".design"));
+  const API = (() => {
+    try {
+      const q = new URLSearchParams(location.search).get("api");
+      if (q) { localStorage.setItem("wolfs_review_api", q); return q; }
+      return localStorage.getItem("wolfs_review_api") || window.REVIEW_API || "";
+    } catch (e) { return window.REVIEW_API || ""; }
+  })().replace(/[/]$/, "");
   let state = {};
   try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { state = {}; }
   const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* private mode */ } };
   const reviewed = (s) => !!(s && (s.track || s.note || s.pick != null));
   const $ = (el, sel) => el.querySelector(sel);
+  const whoInput = document.getElementById("who");
+  try { whoInput.value = localStorage.getItem("wolfs_review_who") || ""; } catch (e) { /* ignore */ }
+  whoInput.addEventListener("change", () => { try { localStorage.setItem("wolfs_review_who", whoInput.value.trim()); } catch (e) { /* ignore */ } });
+  const who = () => whoInput.value.trim();
+  let online = null;
+  function setSync(ok, msg) {
+    online = ok;
+    const el = document.getElementById("sync");
+    el.textContent = msg; el.className = "sync " + (ok ? "on" : ok === false ? "off" : "");
+  }
+  const when = (iso) => { const d = new Date(iso); return isNaN(d) ? "" : d.toLocaleDateString("en-US", { month: "short", day: "numeric" }); };
 
   function paint(sku) {
     const el = document.getElementById(sku); const s = state[sku] || {};
@@ -1116,6 +1243,11 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     el.querySelectorAll("[data-track]").forEach((b) => b.classList.toggle("on", b.dataset.track === s.track));
     el.querySelectorAll(".refs figure").forEach((f) => f.classList.toggle("pick", s.pick != null && +f.dataset.i === s.pick));
     const ta = $(el, "textarea"); if (document.activeElement !== ta && ta.value !== (s.note || "")) ta.value = s.note || "";
+    const st = $(el, ".status");
+    if (!reviewed(s)) st.textContent = "";
+    else if (s.saved) st.textContent = "Saved" + (s.who ? " by " + s.who : "") + (s.at ? ", " + when(s.at) : "");
+    else if (s.pending) st.textContent = "Saving…";
+    else st.textContent = API ? "Kept here, not yet sent" : "Kept in this browser";
   }
   function paintCounts() {
     const n = designs.filter((d) => reviewed(state[d.dataset.sku])).length;
@@ -1128,7 +1260,7 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
   }
   const LABEL = { right: "Looks right", close: "Close", no: "Not it" };
   function summary() {
-    const lines = ["Wolf's design review, " + new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }), ""];
+    const lines = ["Wolf's design review, " + new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) + (who() ? ", from " + who() : ""), ""];
     let n = 0;
     designs.forEach((d) => {
       const sku = d.dataset.sku, s = state[sku];
@@ -1144,8 +1276,55 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     lines.splice(1, 0, n + " of " + designs.length + " designs reviewed.");
     return lines.join("\n");
   }
-  function save(sku, patch) { state[sku] = Object.assign({}, state[sku] || {}, patch); persist(); paint(sku); paintCounts(); }
-  function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("on"), 2400); }
+  function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("on"), 2600); }
+
+  /* ---- saving: in this browser always, and to the shop's server when the board is connected ---- */
+  async function push(sku) {
+    if (!API) return;
+    const s = state[sku];
+    s.pending = true; s.saved = false; paint(sku);
+    try {
+      const r = await fetch(API + "/api/review", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ board: BOARD, sku, name: NAMES[sku], track: s.track || null, pick: s.pick == null ? null : s.pick, note: s.note || "", who: who() }) });
+      if (!r.ok) throw new Error(String(r.status));
+      const j = await r.json();
+      Object.assign(s, { saved: true, pending: false, at: j.answer.at, who: j.answer.who });
+      persist(); paint(sku);
+      setSync(true, "Connected: answers save automatically.");
+    } catch (e) {
+      s.pending = false; s.saved = false; persist(); paint(sku);
+      setSync(false, "Not connected right now: your answers stay in this browser. Use “Send my answers” when you finish.");
+    }
+  }
+  async function pull() {
+    if (!API) return;
+    try {
+      const r = await fetch(API + "/api/review?board=" + BOARD, { cache: "no-store" });
+      if (!r.ok) throw new Error(String(r.status));
+      const j = await r.json();
+      let changed = 0;
+      Object.entries(j.answers || {}).forEach(([sku, a]) => {
+        if (!NAMES[sku]) return;
+        const mine = state[sku];
+        if (mine && mine.at && !mine.saved && mine.at > a.at) return; // our unsent change is newer; push wins later
+        const next = { track: a.track || null, pick: a.pick == null ? null : a.pick, note: a.note || "", who: a.who || "", at: a.at, saved: true };
+        if (a.cleared) { if (mine) { delete state[sku]; changed++; } return; }
+        if (JSON.stringify(next) !== JSON.stringify(mine || {})) { state[sku] = next; changed++; }
+      });
+      persist();
+      if (changed) { designs.forEach((d) => paint(d.dataset.sku)); paintCounts(); }
+      setSync(true, "Connected: answers save automatically.");
+      // anything we marked while offline goes up now
+      designs.forEach((d) => { const s = state[d.dataset.sku]; if (reviewed(s) && !s.saved && !s.pending) push(d.dataset.sku); });
+    } catch (e) {
+      setSync(false, "Not connected right now: your answers stay in this browser. Use “Send my answers” when you finish.");
+    }
+  }
+  function save(sku, patch) {
+    state[sku] = Object.assign({}, state[sku] || {}, patch, { at: new Date().toISOString(), saved: false });
+    persist(); paint(sku); paintCounts();
+    clearTimeout(save._t[sku]); save._t[sku] = setTimeout(() => push(sku), 400);
+  }
+  save._t = {};
 
   designs.forEach((el) => {
     const sku = el.dataset.sku;
@@ -1156,8 +1335,8 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
       f.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(e); } });
     });
     const ta = $(el, "textarea"); let t;
-    ta.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => save(sku, { note: ta.value.trim() }), 500); });
-    ta.addEventListener("blur", () => { clearTimeout(t); save(sku, { note: ta.value.trim() }); });
+    ta.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => save(sku, { note: ta.value.trim() }), 600); });
+    ta.addEventListener("blur", () => { clearTimeout(t); if (((state[sku] || {}).note || "") !== ta.value.trim()) save(sku, { note: ta.value.trim() }); });
   });
   document.querySelectorAll("[data-send]").forEach((b) => b.addEventListener("click", () => {
     const body = summary();
@@ -1170,12 +1349,17 @@ footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--line)
     const ta = document.getElementById("summary"); ta.select();
     try { await navigator.clipboard.writeText(ta.value); toast("Copied"); } catch (e) { document.execCommand && document.execCommand("copy"); toast("Copied"); }
   });
-  document.querySelector("[data-clear]").addEventListener("click", () => {
-    if (!document.querySelector("[data-clear]").dataset.armed) { document.querySelector("[data-clear]").dataset.armed = "1"; document.querySelector("[data-clear]").textContent = "Press again to clear everything"; return; }
+  const clearBtn = document.querySelector("[data-clear]");
+  clearBtn.addEventListener("click", () => {
+    if (!clearBtn.dataset.armed) { clearBtn.dataset.armed = "1"; clearBtn.textContent = "Press again to clear everything"; return; }
+    const skus = Object.keys(state);
     state = {}; persist(); designs.forEach((d) => paint(d.dataset.sku)); paintCounts();
-    document.querySelector("[data-clear]").textContent = "Start over"; delete document.querySelector("[data-clear]").dataset.armed; toast("Cleared");
+    skus.forEach((sku) => { state[sku] = { track: null, pick: null, note: "", at: new Date().toISOString(), saved: false }; push(sku).then(() => { delete state[sku]; persist(); paint(sku); paintCounts(); }); });
+    clearBtn.textContent = "Start over"; delete clearBtn.dataset.armed; toast("Cleared");
   });
   designs.forEach((d) => paint(d.dataset.sku)); paintCounts();
+  if (API) { setSync(null, "Connecting…"); pull(); setInterval(pull, 30000); }
+  else setSync(null, "Answers are kept in this browser. Press “Send my answers” when you finish.");
 })();
 </script>
 </body>
